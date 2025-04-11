@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #b9b9b9;
+  border-radius: 0px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #5e5e5e;
+  border-radius: 0px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #383838;
+}
+
+
+
+body {
+  height: 100%;
+  min-height: 100dvh;
+  background-color: #f3f3f3;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: "Noto Sans Thai", sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* img {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+} */
+
+.swal2-container {
+  z-index: 999999 !important;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-size: 1rem !important;
+}
+.react-multi-carousel-dot--active button {
+  background-color: #fff !important;
+}
+.swal2-title {
+  font-size: 2rem !important;
+}
+
+.swal2-html-container {
+  font-size: 1rem !important;
+}
+
+.swal2-warning {
+  color: #E41E2B !important;
+  border-color: #E41E2B !important;
+}
+
+.swal2-error {
+  color: #E41E2B !important;
+  border-color: #E41E2B !important;
+}
+
+.swal2-success {
+  color: #E41E2B !important;
+  border-color: #E41E2B !important;
+}
+
+.swal2-question {
+  color: #E41E2B !important;
+  border-color: #E41E2B !important;
+}
+
+.swal2-confirm {
+  color: white !important;
+  background-color: #E41E2B !important;
+}
+/* .swal2-cancel {
+  color: white !important;
+  background-color: #FF1400 !important;
+}  */

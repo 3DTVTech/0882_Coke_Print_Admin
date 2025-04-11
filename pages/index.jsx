@@ -32,15 +32,24 @@ export default function Dashboard() {
 
   //get users all
   const getSession = async () => {
-    const res = await httpRequest("GET", "/sessions");
+    // console.log("getitng sessions...");
+    const sessionRes = await httpRequest("GET", "/sessions");
 
-    console.log(res);
+    // console.log("getitng prints...");
+    const printRes = await httpRequest("GET", "/prints");
 
-    if (res.status == "error") return;
+    // console.log("got sessions");
+    // console.log(sessionRes);
 
-    const data = res.data;
+    if (sessionRes.status == "error") return;
 
-    console.log(data);
+    const data = sessionRes.data;
+    // console.log("sessionsData");
+    // console.log(data);
+
+    const printData = printRes?.data;
+    // console.log("printsData");
+    // console.log(printData);
 
     data.sort((a, b) => {
       return b.id - a.id;
@@ -50,10 +59,15 @@ export default function Dashboard() {
         number: index + 1,
         createdAtText: dayjs(item.createdAt).format("DD/MM/YYYY HH:mm:ss"),
         station: station?.find((station) => station.id == item.stationId)?.name,
-        print: item.prints.length || 0,
+        // print: item?.prints?.length || 0,
+        print: printData
+          ? printData?.filter((p) => p?.sessionId == item?.id)?.length
+          : 0,
         ...item,
       };
     });
+
+    // console.log("before setting users");
 
     setUsers(newData);
 
@@ -71,7 +85,7 @@ export default function Dashboard() {
 
     if (res.status == "error") return;
 
-    console.log(res.data);
+    // console.log(res.data);
 
     setStation(res.data);
   };
@@ -119,6 +133,8 @@ export default function Dashboard() {
   const filterDataFunc = () => {
     let data = users;
 
+    // console.log("before filterdata");
+
     if (filter.stationId != "all") {
       data = data.filter((item) => item.stationId == filter.stationId);
     }
@@ -139,6 +155,7 @@ export default function Dashboard() {
       });
     }
 
+    // console.log("before setting filterData");
     setFilterData(data);
   };
 
@@ -181,14 +198,17 @@ export default function Dashboard() {
   ];
 
   useEffect(() => {
+    // console.log("filter or users changed --");
     filterDataFunc();
   }, [filter, users]);
 
   useEffect(() => {
+    // console.log("getting a new sessions --");
     getSession();
   }, [station]);
 
   useEffect(() => {
+    // console.log("getting station --");
     getStation();
   }, []);
 
@@ -218,10 +238,10 @@ export default function Dashboard() {
             </Typography>
           </Box>
           <Box className="bg-white  rounded-lg shadow-md flex flex-col justify-center  items-center px-5">
-          <Typography className="text-[1.5rem] font-bold text-center w-full">
-            จำนวนการพิมพ์
-          </Typography>
-          
+            <Typography className="text-[1.5rem] font-bold text-center w-full">
+              จำนวนการพิมพ์
+            </Typography>
+
             <Typography className="text-[1.25rem] font-bold text-center w-full">
               {" "}
               จำนวน{" "}

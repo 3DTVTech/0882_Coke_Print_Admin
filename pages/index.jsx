@@ -38,6 +38,9 @@ export default function Dashboard() {
     // console.log("getitng prints...");
     const printRes = await httpRequest("GET", "/prints");
 
+    // console.log("getitng stations...");
+    const stationRes = await httpRequest("GET", "/stations");
+
     // console.log("got sessions");
     // console.log(sessionRes);
 
@@ -51,6 +54,10 @@ export default function Dashboard() {
     // console.log("printsData");
     // console.log(printData);
 
+    const stationData = stationRes?.data;
+    // console.log("stationData");
+    // console.log(stationData);
+
     data.sort((a, b) => {
       return b.id - a.id;
     });
@@ -58,11 +65,14 @@ export default function Dashboard() {
       return {
         number: index + 1,
         createdAtText: dayjs(item.createdAt).format("DD/MM/YYYY HH:mm:ss"),
-        station: station?.find((station) => station.id == item.stationId)?.name,
+        // station: station?.find((station) => station.id == item.stationId)?.name,
+        station: stationData
+          ? stationData?.find((station) => station.id == item.stationId)?.name
+          : "-",
         // print: item?.prints?.length || 0,
         print: printData
           ? printData?.filter((p) => p?.sessionId == item?.id)?.length
-          : 0,
+          : "-",
         ...item,
       };
     });
@@ -205,12 +215,12 @@ export default function Dashboard() {
   useEffect(() => {
     // console.log("getting a new sessions --");
     getSession();
-  }, [station]);
-
-  useEffect(() => {
-    // console.log("getting station --");
-    getStation();
   }, []);
+
+  // useEffect(() => {
+  //   console.log("getting station --");
+  //   getStation();
+  // }, []);
 
   return (
     <AppWrapper>

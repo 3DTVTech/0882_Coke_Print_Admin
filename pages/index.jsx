@@ -80,6 +80,7 @@ export default function Dashboard() {
     // console.log("before setting users");
 
     setUsers(newData);
+    setStation(stationData);
 
     if (newData.length == 0) {
       setTimeout(() => {
@@ -90,15 +91,15 @@ export default function Dashboard() {
     }
   };
 
-  const getStation = async () => {
-    const res = await httpRequest("GET", "/stations");
-
-    if (res.status == "error") return;
-
-    // console.log(res.data);
-
-    setStation(res.data);
-  };
+  // const getStation = async () => {
+  //   const res = await httpRequest("GET", "/stations");
+  //
+  //   if (res.status == "error") return;
+  //
+  //   // console.log(res.data);
+  //
+  //   setStation(res.data);
+  // };
 
   const exportExcel = async () => {
     const workSheetName = "coke-printing";
